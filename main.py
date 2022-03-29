@@ -1,16 +1,38 @@
-# This is a sample Python script.
+"""Program to create lens that focuses light on a point near inside the lens and draws the rays."""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from onScreen import Display
+from source import Source
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#Variables:
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+"""
+Lens Variables
+# deltaY
+# deltaY: a fixed vertical value between points
+# deltaX: The amount that x changes. Determined by the slope of the lens
+# lensSlope
+"""
+
+"""
+Light Variables
+source
+sourceNum
+sourceWidth
+sourceX, sourceY
+"""
+lightSourceWidth = 200
+numberLightSources = 10
+lightSource = Source(numberLightSources, lightSourceWidth)
+light = lightSource.createSource()
+
+# theta1
+# theta2
+#
+
+
+toScreen = Display()
+toScreen.draw_source(light)
+
+toScreen.display_to_screen()
