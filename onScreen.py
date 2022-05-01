@@ -1,6 +1,9 @@
 import pygame
 
 class Display():
+    """Set colors, screeh size, display object, OFFSET_X, OFFSET_Y, to center displayed objects.
+    Display caption, fill color
+    """
 
     def __init__(self):
         pygame.init()
@@ -17,14 +20,26 @@ class Display():
         self.display = pygame.display.set_mode(self.size)
         self.OFFSET_X =  int(self.width/2)
         self.OFFSET_Y = int(self.height/2)
-        pygame.display.set_caption("PARABOLA")
+        pygame.display.set_caption("Lens")
         self.display.fill(self.WHITE)
 
     def draw_source(self, lightSource):
+
         for source in lightSource:
             x = source[0] # + self.OFFSET_X
-            y = source[1] + self.OFFSET_Y
-            pygame.draw.circle(self.display, self.RED,( x, y), 2, 2)
+            y = -source[1] + self.OFFSET_Y  # SET NEGATIVE TO MAKE SOURCE ON UPPER HALF IN IMAGE
+            pygame.draw.circle(self.display, self.RED,( x, y), 2, 2)    #
+
+    def draw_FrontLensCenter(self, x, y):
+        x = x
+        y = y + self.OFFSET_Y
+        pygame.draw.circle(self.display, self.RED,(x, y), 2, 2)
+
+    def draw_FrontLensSurface(self, surface):
+        for point in surface:
+            x = point[0]
+            y = point[1]
+            pygame.draw.circle(self.display, self.RED,(x,y + self.OFFSET_Y),1,1)
 
 
     def display_to_screen(self):
