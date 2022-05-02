@@ -23,23 +23,26 @@ class Display():
         pygame.display.set_caption("Lens")
         self.display.fill(self.WHITE)
 
-    def draw_source(self, lightSource):
-
-        for source in lightSource:
-            x = source[0] # + self.OFFSET_X
-            y = -source[1] + self.OFFSET_Y  # SET NEGATIVE TO MAKE SOURCE ON UPPER HALF IN IMAGE
-            pygame.draw.circle(self.display, self.RED,( x, y), 2, 2)    #
-
-    def draw_FrontLensCenter(self, x, y):
-        x = x
-        y = y + self.OFFSET_Y
-        pygame.draw.circle(self.display, self.RED,(x, y), 2, 2)
-
     def draw_FrontLensSurface(self, surface):
         for point in surface:
             x = point[0]
             y = point[1]
             pygame.draw.circle(self.display, self.RED,(x,y + self.OFFSET_Y),1,1)
+
+    def draw_Source(self, source):
+        x = source[0] # + self.OFFSET_X
+        #print(f"x = {x}")
+        y = -source[1] + self.OFFSET_Y  # SET NEGATIVE TO MAKE SOURCE ON UPPER HALF IN IMAGE
+        pygame.draw.circle(self.display, self.RED,( x, y), 2, 2)    #
+
+    def draw_Rays(self, ray):
+
+        for p in range(len(ray)-1):
+            print(f"ray = {ray}")
+            x1, y1 = ray[p][0], -ray[p][1]
+            x2, y2 = ray[p+1][0], -ray[p+1][1]
+
+            pygame.draw.line(self.display, self.RED, [x1, y1 + self.OFFSET_Y], [x2, y2 + self.OFFSET_Y])
 
 
     def display_to_screen(self):
