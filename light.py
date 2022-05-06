@@ -7,6 +7,7 @@ class Light():
         self.sourceY = 0    # Y position of light source
         self.sourceWidth = 10
         self.ray = []
+        self.angle = 0
 
     def source(self):
         self.ray.append([self.sourceX, self.sourceY + self.rayNumber * self.sourceWidth])

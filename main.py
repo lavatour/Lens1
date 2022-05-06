@@ -1,12 +1,15 @@
 """Program to create lens that focuses light on a point near inside the lens and draws the rays."""
 
+import math
 from onScreen import Display
 from light import Light
 from sphericalLens import SphericalLens
+from linearAlg import LinearAlgebra
 
 """Lens Surface"""
 lensFront = SphericalLens()     #Initiate LensFront Class
 surface = lensFront.equation()      #Equation for the lens surface
+linAlg = LinearAlgebra
 #print(f"surface = {surface}")   #Print surface coordinates
 
 """Light Source"""
@@ -22,13 +25,21 @@ for lightBeam in light:
     #print(f"ray = {lightBeam.ray}")
 
 for lightBeam in light:
-    pass
-    #print(f"lightBeam.ray = {lightBeam.ray}")
+    """Calculate ray lens intersection."""
+    lensFront.raySurfaceIntersection(lightBeam.ray)
+    print(f"ray1 = {lightBeam.ray[-1]}")
 
 for lightBeam in light:
-    lensFront.raySurfaceIntersection(lightBeam.ray)
-    print(f"ray1 = {lightBeam.ray}")
+    """Calculate normal angle"""
+    unitNormalVector = lensFront.normalVect(lightBeam.ray)
+    print(f"normalVector = {unitNormalVector}")
 
+for lightBeam in light:
+    """Calculate dot product and multiply normal vector by -1 if necessary"""
+    pass
+    #dotProd = linAlg.dotProd(self, lightBeam.ray, )
+
+#******************************************8
 toScreen = Display()
 
 toScreen.draw_FrontLensSurface(surface)

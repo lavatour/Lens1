@@ -38,7 +38,7 @@ class Display():
     def draw_Rays(self, ray):
 
         for p in range(len(ray)-1):
-            print(f"ray = {ray}")
+            #print(f"ray = {ray}")
             x1, y1 = ray[p][0], -ray[p][1]
             x2, y2 = ray[p+1][0], -ray[p+1][1]
 
