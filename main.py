@@ -4,35 +4,30 @@ import math
 from onScreen import Display
 from light import Light
 from sphericalLens import SphericalLens
-from linearAlg import LinearAlgebra
+#from linearAlg import LinearAlgebra
 
-"""Lens Surface"""
-lensFront = SphericalLens()     #Initiate LensFront Class
-surface = lensFront.equation()      #Equation for the lens surface
-linAlg = LinearAlgebra
-#print(f"surface = {surface}")   #Print surface coordinates
+"""Initiate Lens object of class Spherical Lens"""
+lens = SphericalLens()     #Initiate Lens Class This will depend on the type of lens being used
+surface = lens.equation()      #Equation for the lens surface
 
-"""Light Source"""
-#lightSourceWidth = 600  #Width or height of light source
+"""Set number of light sources then initiate ray objects"""
 numberLightSources = 20
+"""Initiate Class Light"""
 
 light = []  #Light List for light objects
 for i in range(numberLightSources): #
-    light.append(Light(i))          #Initiation of light objects
+    light.append(Light(i))   #Initiation of light objects
 
 for lightBeam in light:
     lightBeam.source()   #Add source coordinates to light.
     #print(f"ray = {lightBeam.ray}")
 
-for lightBeam in light:
-    """Calculate ray lens intersection."""
-    lensFront.raySurfaceIntersection(lightBeam.ray)
-    print(f"ray1 = {lightBeam.ray[-1]}")
 
 for lightBeam in light:
-    """Calculate normal angle"""
-    unitNormalVector = lensFront.normalVect(lightBeam.ray)
-    print(f"normalVector = {unitNormalVector}")
+    """Calculate ray lens intersection."""
+    lightBeam.refraction()
+
+
 
 for lightBeam in light:
     """Calculate dot product and multiply normal vector by -1 if necessary"""

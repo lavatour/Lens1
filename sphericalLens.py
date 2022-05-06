@@ -8,6 +8,7 @@ class SphericalLens():
         self.radius = 300
         self.angle = 0
         self.unitNormalVector = []
+        refractiveIndex =
 
     def equation(self):
         surface = []
@@ -31,7 +32,7 @@ class SphericalLens():
 
     def normalVect(self, ray):
         """Calculate normal vector. Confirm by calculating normal angle."""
-        x, y = ray[-1][0] - 500, ray[-1][1]
+        x, y = (ray[-1][0] - 500), ray[-1][1]
         normalTheta = math.atan2(y, x)
         #print(normalTheta * 180 / (math.pi))
         radius = math.sqrt(x*x + y*y)
