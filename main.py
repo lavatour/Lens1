@@ -3,12 +3,15 @@
 import math
 from onScreen import Display
 from light import Light
-from sphericalLens import SphericalLens
+from sphericalLens import FirstLens
+from sphericalLens import SecondLens
 #from linearAlg import LinearAlgebra
 
 """Initiate Lens object of class Spherical Lens"""
-lens = SphericalLens()     #Initiate Lens Class This will depend on the type of lens being used
-surface = lens.equation()      #Equation for the lens surface
+lens1 = FirstLens()     #Initiate Lens Class This will depend on the type of lens being used
+surface1 = lens1.equation()      #Equation for the lens surface
+
+
 
 """Set number of light sources then initiate ray objects"""
 numberLightSources = 20
@@ -25,26 +28,35 @@ for lightBeam in light:
 
 for lightBeam in light:
     """Calculate ray lens intersection."""
-    lightBeam.refraction()
+    lightBeam.refraction1()
+
 
 fp = []
 for lightBeam in light:
-    """Calculate average focal point"""
+    """Refraction and Ave focal point"""
     #print(f"fp = {lightBeam.xfp}")
     if lightBeam.xfp != 0:
         fp.append(lightBeam.xfp)
-ave = sum(fp) / len(fp)
-print(f"ave = {ave}")
+aveFP = sum(fp) / len(fp)
+FirstLens.focalPoint = aveFP
 
-#ave_fp = sum(fp) / len(fp)
-#print(f"ave = {ave}")
+
+
+
+"""Placement of lens2"""
+lens2 = SecondLens()
+lens2.equation2(aveFP)
+
+
+
+
+
 
 #******************************************8
 toScreen = Display()
 
 #drawLens
-toScreen.draw_FrontLensSurface(surface)
-
+toScreen.draw_FrontLensSurface(surface1)
 
 for lightBeam in light:
     #print(f"beam = {beam}")

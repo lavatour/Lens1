@@ -1,14 +1,14 @@
 import math
 import light as Light
 
-class SphericalLens():
+class FirstLens():
     def __init__(self):
         self.x_c = 500
         self.y_c = 0
         self.radius = 300
-        self.angle = 0
         self.unitNormalVector = []
         self.refIndex = 1.5
+        self.lens1FocalPt = [0, 0]
 
     def equation(self):
         surface = []
@@ -44,6 +44,24 @@ class SphericalLens():
     def dotProduct(self, rayVector):
         """Calculate dot product of ray[-1] and the surface normal vector"""
 
+
+class SecondLens():
+    def __init__(self):
+        self.centerX = 0
+        self.radius = 15
+        self.unitNormalVector = []
+        print(f"centerX = {self.centerX}")
+
+    def equation2(self, focalPoint):
+        self.centerX = focalPoint
+        surface = []
+        for angle in range(60, 270):
+            theta = angle * math.pi / 180
+            x = self.centerX + self.radius * math.cos(theta)
+            y = self.radius * math.sin(theta)
+            surface.append([x,y])
+        print(surface)
+        return surface
 
 
 

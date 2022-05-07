@@ -1,5 +1,6 @@
 import math
-from sphericalLens import SphericalLens
+from sphericalLens import FirstLens
+from sphericalLens import SecondLens
 from linearAlg import LinAlg
 
 class Light():
@@ -11,7 +12,7 @@ class Light():
         self.sourceWidth = 10   # Vertical distance between rays
         self.ray = []           # ray position
         self.angle = []          # ray angle
-        self.lens = SphericalLens()  # Initiate Lens Class This will depend on the type of lens being used
+        self.lens = FirstLens()  # Initiate Lens Class This will depend on the type of lens being used
         self.xfp = 0   # The points where the ray crosses the focal line
 
     def source(self):
@@ -19,8 +20,8 @@ class Light():
         self.angle.append(0)
         return self.ray
 
-    def refraction(self):
-        # Returns point where light intersects lens surface.
+    def refraction1(self):
+        """Ray """
         self.lens.raySurfaceIntersection(self.ray)
         # Compute Normal Vector
         unitNormalVector = self.lens.normalVect(self.ray)
@@ -56,11 +57,10 @@ class Light():
         #print(f"angle = {round(self.angle[-1] * 180 / math.pi, 2)}")
         if m != 0:
             self.xfp = y / m + x
-            #print(f"x = {self.xfp}")
-        #print(f"xfp = {self.xfp}")
-        #ave = sum(xfp) / len(xfp)
-        #print(f"ave = {ave}")
 
-        # Compute dot product of ray and
+    def refraction2(self):
+        SecondLens.equation(self)
+
+
 
 
