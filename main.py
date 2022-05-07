@@ -27,21 +27,24 @@ for lightBeam in light:
     """Calculate ray lens intersection."""
     lightBeam.refraction()
 
-
-
+fp = []
 for lightBeam in light:
-    """Calculate dot product and multiply normal vector by -1 if necessary"""
-    pass
-    #dotProd = linAlg.dotProd(self, lightBeam.ray, )
+    """Calculate average focal point"""
+    #print(f"fp = {lightBeam.xfp}")
+    if lightBeam.xfp != 0:
+        fp.append(lightBeam.xfp)
+ave = sum(fp) / len(fp)
+print(f"ave = {ave}")
+
+#ave_fp = sum(fp) / len(fp)
+#print(f"ave = {ave}")
 
 #******************************************8
 toScreen = Display()
 
+#drawLens
 toScreen.draw_FrontLensSurface(surface)
 
-for source in light:
-    #print(f"ray = {source.ray}")
-    toScreen.draw_Source(source.ray[0])
 
 for lightBeam in light:
     #print(f"beam = {beam}")

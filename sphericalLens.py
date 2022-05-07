@@ -8,7 +8,7 @@ class SphericalLens():
         self.radius = 300
         self.angle = 0
         self.unitNormalVector = []
-        refractiveIndex =
+        self.refIndex = 1.5
 
     def equation(self):
         surface = []
