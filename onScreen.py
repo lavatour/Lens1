@@ -23,7 +23,13 @@ class Display():
         pygame.display.set_caption("Lens")
         self.display.fill(self.WHITE)
 
-    def draw_FrontLensSurface(self, surface):
+    def draw_Lens1(self, surface):
+        for point in surface:
+            x = point[0]
+            y = point[1]
+            pygame.draw.circle(self.display, self.RED,(x,y + self.OFFSET_Y),1,1)
+
+    def draw_Lens2(self, surface):
         for point in surface:
             x = point[0]
             y = point[1]
