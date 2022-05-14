@@ -1,18 +1,18 @@
 import math
-from lenses import FirstLens
+from lenses import Lens
 from lenses import SecondLens
 from linearAlg import LinAlg
 
 class Light():
     """Light class for Light objects"""
-    def __init__(self, rayCount):   #Number of rays to be generated
-        self.rayNumber = rayCount
+    def __init__(self, rayNumber):   #Number of rays to be generated
+        self.rayNumber = rayNumber
         self.sourceX = 50   # X position of light source
         self.sourceY = 0    # Y position of light source
         self.sourceWidth = 10   # Vertical distance between rays
         self.ray = []           # ray position
         self.angle = []          # ray angle
-        self.lens1 = FirstLens()  # Initiate Lens Class This will depend on the type of lens being used
+        #self.lens = lens  # Initiate Lens Class This will depend on the type of lens being used
         self.lens2 = SecondLens()
         self.xfp = 0   # The points where the ray crosses the focal line
 
@@ -22,11 +22,11 @@ class Light():
         self.angle.append(0)
         return self.ray
 
-    def refraction1(self):
+    def refraction1(self, lens):
         """Ray - Lens1 Interaction and refraction"""
-        self.lens1.rayLens1Intersection(self.ray)
+        lens.rayLensIntersection(self.ray)
         # Compute Normal Vector
-        unitNormalVector = self.lens1.normalVect(self.ray)
+        unitNormalVector = lens.normalVect(self.ray)
         #if self.ray[0][1] == 40:
         #    print(f"unitNormalVector = {unitNormalVector}")
         # Compute ray Unit Normal Vector
@@ -49,7 +49,7 @@ class Light():
             #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute Angle of refraction
-        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / self.lens1.refIndex)
+        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / lens.refIndex)
         #if self.ray[0][1] == 40:
             #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 
@@ -104,7 +104,7 @@ class Light():
             #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute Angle of refraction
-        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / self.lens1.refIndex)
+        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / lens.refIndex)
         #if self.ray[0][1] == 40:
             #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 

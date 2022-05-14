@@ -3,19 +3,19 @@
 import math
 from onScreen import Display
 from light import Light
-from lenses import FirstLens
-from lenses import SecondLens
+from lenses import Lens
+#from lenses import SecondLens
 #from linearAlg import LinearAlgebra
 
 
 """ Create Lens1 class object """
-lens1 = FirstLens()
+lens1 = Lens(300, 500, 0, 1.5)
 surface1 = lens1.equation()
 
 
 """ Create lens2 class object """
-lens2 = SecondLens()
-surface2 = lens2.equation2()
+lens2 = Lens(30, 965, 0, 1.0)
+surface2 = lens2.equation()
 
 
 
@@ -36,7 +36,7 @@ for lightBeam in light:
 
 for lightBeam in light:
     """Calculate ray lens1 intersection."""
-    lightBeam.refraction1()
+    lightBeam.refraction1(lens1)
     #if lightBeam.ray[0][1] == 40:
         #print(lightBeam.ray[0][1])
         #print(f"lightBeam.angle[-1] = {lightBeam.angle[-1]}")
