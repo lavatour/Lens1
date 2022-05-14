@@ -7,44 +7,47 @@ from lenses import FirstLens
 from lenses import SecondLens
 #from linearAlg import LinearAlgebra
 
-"""Initiate Lens object of class Spherical Lens"""
-lens1 = FirstLens()     #Initiate Lens Class This will depend on the type of lens being used
-surface1 = lens1.equation()      #Equation for the lens surface
+
+""" Create Lens1 class object """
+lens1 = FirstLens()
+surface1 = lens1.equation()
+
+
+""" Create lens2 class object """
+lens2 = SecondLens()
+surface2 = lens2.equation2()
 
 
 
-"""Set number of light sources then initiate ray objects"""
-numberLightSources = 20
+"""Set number of light sources"""
+numberLightRays = 20
 """Initiate Class Light"""
-
 light = []  #Light List for light objects
-for i in range(numberLightSources): #
-    light.append(Light(i))   #Initiation of light objects
 
+""" Create instances of light"""
+for i in range(numberLightRays): #
+    light.append(Light(i))
+
+"""******** LIGHT SOURCE POINTS IN LIGHT OBJECTS ********"""
 for lightBeam in light:
-    lightBeam.source()   #Add source coordinates to light.
+    lightBeam.lightSource()   #Add source coordinates to light.
     #print(f"ray = {lightBeam.ray}")
 
 
 for lightBeam in light:
-    """Calculate ray lens intersection."""
+    """Calculate ray lens1 intersection."""
     lightBeam.refraction1()
-    if lightBeam.ray[0][1] == 40:
-        print(lightBeam.ray[0][1])
-        print(f"lightBeam.angle[-1] = {lightBeam.angle[-1]}")
+    #if lightBeam.ray[0][1] == 40:
+        #print(lightBeam.ray[0][1])
+        #print(f"lightBeam.angle[-1] = {lightBeam.angle[-1]}")
 
 
-"""Placement of lens2"""
-lens2 = SecondLens()
-surface2 = lens2.equation2()
 
 #for lightBeam in light:
     #lightBeam.refraction2()
 
-
 #******************************************8
 toScreen = Display()
-
 
 #drawLens
 toScreen.draw_Lens1(surface1)

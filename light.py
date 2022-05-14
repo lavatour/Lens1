@@ -16,7 +16,8 @@ class Light():
         self.lens2 = SecondLens()
         self.xfp = 0   # The points where the ray crosses the focal line
 
-    def source(self):
+    def lightSource(self):
+        """ SOURCE POINTS """
         self.ray.append([self.sourceX, self.sourceY + self.rayNumber * self.sourceWidth])
         self.angle.append(0)
         return self.ray
@@ -26,12 +27,12 @@ class Light():
         self.lens1.rayLens1Intersection(self.ray)
         # Compute Normal Vector
         unitNormalVector = self.lens1.normalVect(self.ray)
-        if self.ray[0][1] == 40:
-            print(f"unitNormalVector = {unitNormalVector}")
+        #if self.ray[0][1] == 40:
+        #    print(f"unitNormalVector = {unitNormalVector}")
         # Compute ray Unit Normal Vector
         rayUnitVector = LinAlg.makeUnitVector(self, self.ray[-2][0], self.ray[-2][1], self.ray[-1][0], self.ray[-1][1])
-        if self.ray[0][1] == 40:
-            print(f"rayUnitVector = {rayUnitVector}")
+        #if self.ray[0][1] == 40:
+            #print(f"rayUnitVector = {rayUnitVector}")
 
         #Compute dot produce. If angle is obtuse unitNormalVector will be multiplied by -1
         dotProd = LinAlg.dotProd(self, unitNormalVector, rayUnitVector)
@@ -41,22 +42,23 @@ class Light():
 
         # Use cross product to find sin(theta)
         crossProd = LinAlg.crossProd(self, rayUnitVector, unitNormalVector)
-        if self.ray[0][1] == 40:
-            print(f"crossProd = {crossProd}")
+        #if self.ray[0][1] == 40:
+            #print(f"crossProd = {crossProd}")
         angleOfIncidence = math.asin(crossProd)
-        if self.ray[0][1] == 40:
-            print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
+        #if self.ray[0][1] == 40:
+            #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute Angle of refraction
         angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / self.lens1.refIndex)
-        if self.ray[0][1] == 40:
-            print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
+        #if self.ray[0][1] == 40:
+            #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 
         normalAngle = math.asin(unitNormalVector[1])
         lightAngle = normalAngle - angleOfRefraction
-        if self.ray[0][1] == 40:
-            print(lightAngle*180/math.pi)
+        #if self.ray[0][1] == 40:
+            #print(lightAngle*180/math.pi)
         self.angle.append(lightAngle)
+
 
         """
         # Next Ray Segment
@@ -78,9 +80,38 @@ class Light():
     #def refraction2(self):
         """Ray """
         self.lens2.rayLens2Intersection(self.ray, self.angle)
-        
+        # Compute Normal Vector
+        unitNormalVector = self.lens2.normalVect(self.ray)
+        #if self.ray[0][1] == 40:
+        print(f"unitNormalVector = {unitNormalVector}")
+        #Compute ray Unit Normal Vector
+        rayUnitVector = LinAlg.makeUnitVector(self, self.ray[-2][0], self.ray[-2][1], self.ray[-1][0], self.ray[-1][1])
+        # if self.ray[0][1] == 40:
+        print(f"rayUnitVector = {rayUnitVector}")
 
+        #Compute dot produce. If angle is obtuse unitNormalVector will be multiplied by -1
+        dotProd = LinAlg.dotProd(self, unitNormalVector, rayUnitVector)
+        if dotProd < 0:
+            unitNormalVector = LinAlg.scalarMultiplication(self, -1, unitNormalVector)
+        print(f"unitNormalVector = {unitNormalVector}")
 
+        # Use cross product to find sin(theta)
+        crossProd = LinAlg.crossProd(self, rayUnitVector, unitNormalVector)
+        #if self.ray[0][1] == 40:
+            #print(f"crossProd = {crossProd}")
+        angleOfIncidence = math.asin(crossProd)
+        #if self.ray[0][1] == 40:
+            #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
 
+        # Compute Angle of refraction
+        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / self.lens1.refIndex)
+        #if self.ray[0][1] == 40:
+            #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 
+        normalAngle = math.asin(unitNormalVector[1])
+        lightAngle = normalAngle - angleOfRefraction
+        #if self.ray[0][1] == 40:
+            #print(lightAngle*180/math.pi)
+        self.angle.append(lightAngle)
+        print(f"angle = {self.angle}")
 
