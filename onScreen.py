@@ -37,7 +37,6 @@ class Display():
 
     def draw_Source(self, source):
         x = source[0] # + self.OFFSET_X
-        #print(f"x = {x}")
         y = -source[1] + self.OFFSET_Y  # SET NEGATIVE TO MAKE SOURCE ON UPPER HALF IN IMAGE
         pygame.draw.circle(self.display, self.RED,( x, y), 2, 2)    #
 
