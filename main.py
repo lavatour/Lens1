@@ -9,14 +9,13 @@ from lenses import Lens
 
 
 """ Create Lens1 class object """
-lens1 = Lens(300, 500, 0, 1.5)
+lens1 = Lens(300, 500, 0, 1.0, 1.5)
 surface1 = lens1.equation()
 
 
 """ Create lens2 class object """
-lens2 = Lens(30, 965, 0, 1.0)
+lens2 = Lens(30, 965, 0, 1.5, 1.0)
 surface2 = lens2.equation()
-
 
 
 """Set number of light sources"""
@@ -28,20 +27,36 @@ light = []  #Light List for light objects
 for i in range(numberLightRays): #
     light.append(Light(i))
 
-"""******** LIGHT SOURCE POINTS IN LIGHT OBJECTS ********"""
+""" LIGHT SOURCE POINTS IN LIGHT OBJECTS """
 for lightBeam in light:
-    lightBeam.lightSource()   #Add source coordinates to light.
-    #print(f"ray = {lightBeam.ray}")
+    lightBeam.lightSource()
+    #print(f"33 ray = {lightBeam.ray}")
+
+""" LIGHT LENS INTERSECTION """
+for lightBeam in light:
+    lightBeam.rayLensIntersection(lens1)
 
 
 for lightBeam in light:
     """Calculate ray lens1 intersection."""
-    lightBeam.refraction1(lens1)
+    pass
+    #lightBeam.refraction(lens1, n1 = 1.0, n2 = 1.5)
+    print("44")
     #if lightBeam.ray[0][1] == 40:
-        #print(lightBeam.ray[0][1])
-        #print(f"lightBeam.angle[-1] = {lightBeam.angle[-1]}")
+    #print(f"46 lightBeam.ray[0][1] = {lightBeam.ray[0][1]}")
+    #print(f"lightBeam.angle[-1] = {lightBeam.angle[-1]}")
+
+for lightBeam in light:
+    pass
+    #lightBeam.rayExtension()
 
 
+print("\n****************************************************************\n")
+for lightBeam in light:
+    """ ray lens2 intersection"""
+    pass
+    #lightBeam.refraction(lens2, n1 = 1.5, n2 = 1.0)
+    print()
 
 #for lightBeam in light:
     #lightBeam.refraction2()

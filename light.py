@@ -22,96 +22,103 @@ class Light():
         self.angle.append(0)
         return self.ray
 
-    def refraction1(self, lens):
-        """Ray - Lens1 Interaction and refraction"""
-        lens.rayLensIntersection(self.ray)
-        # Compute Normal Vector
-        unitNormalVector = lens.normalVect(self.ray)
-        #if self.ray[0][1] == 40:
-        #    print(f"unitNormalVector = {unitNormalVector}")
-        # Compute ray Unit Normal Vector
-        rayUnitVector = LinAlg.makeUnitVector(self, self.ray[-2][0], self.ray[-2][1], self.ray[-1][0], self.ray[-1][1])
-        #if self.ray[0][1] == 40:
-            #print(f"rayUnitVector = {rayUnitVector}")
 
-        #Compute dot produce. If angle is obtuse unitNormalVector will be multiplied by -1
-        dotProd = LinAlg.dotProd(self, unitNormalVector, rayUnitVector)
-        if dotProd < 0:
-            unitNormalVector = LinAlg.scalarMultiplication(self, -1, unitNormalVector)
-        #print(f"unitNormalVector = {unitNormalVector}")
+    def rayLensIntersection(self, lens):
+        x = self.ray[-1][0]
+        y = self.ray[-1][1]
+        #print(f"x, y = {x, y}")
+        h, k = lens.x_c, lens.y_c
 
-        # Use cross product to find sin(theta)
-        crossProd = LinAlg.crossProd(self, rayUnitVector, unitNormalVector)
-        #if self.ray[0][1] == 40:
-            #print(f"crossProd = {crossProd}")
-        angleOfIncidence = math.asin(crossProd)
-        #if self.ray[0][1] == 40:
-            #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
+        while abs(((x - h) ** 2 + (y - k) ** 2)- lens.radius ** 2) > 0.000001:
+            #print(f"h, k = {h, k}")
+            #print(f"x, y = {x, y}")
+            dist = math.sqrt((x - lens.x_c)**2 + (y - lens.y_c)**2 ) - lens.radius
+            #print(f"dist, dist * math.cos(angle[-1]) = {dist, dist * math.cos(angle[-1]) - self.radius}")
+            #print(f"((x - h)**2 + (y - k)**2) - self.radius**2, {((x - h)**2 + (y - k)**2) - self.radius**2}")
+            x = x + dist * math.cos(self.angle[-1])
+            y = y + dist * math.sin(self.angle[-1])
 
-        # Compute Angle of refraction
-        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / lens.refIndex)
-        #if self.ray[0][1] == 40:
-            #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
-
-        normalAngle = math.asin(unitNormalVector[1])
-        lightAngle = normalAngle - angleOfRefraction
-        #if self.ray[0][1] == 40:
-            #print(lightAngle*180/math.pi)
-        self.angle.append(lightAngle)
-
-
-        """
-        # Next Ray Segment
-        if self.ray[0][1] == 40:
-            rayEnd = 439.12
-        else:
-            rayEnd = 800
-        x = self.ray[-1][0] + rayEnd * math.cos(self.angle[-1])
-        y = self.ray[-1][1] + rayEnd * math.sin(self.angle[-1])
         self.ray.append([x, y])
 
-        # Calculate point at which each ray reaches lens axis, x = 0.
 
-        m = math.tan(self.angle[-1])
-        #print(f"angle = {round(self.angle[-1] * 180 / math.pi, 2)}")
-        if m != 0:
-            self.xfp = y / m + x
-        """
-    #def refraction2(self):
-        """Ray """
-        self.lens2.rayLens2Intersection(self.ray, self.angle)
+    """
+    def rayLensIntersection(self, lens):
+        #intersection = []
+        #print(f"ray = {ray[-1]}")
+        y = self.ray[-1][1]
+        #print(f"radius, y, self.y_c = {self.radius, y, self.y_c}")
+        #print(f"asin(inside) = {(y + self.y_c) / self.radius}")
+        #if (y + self.y_c) / self.radius > 1:
+            #theta = math.pi / 4
+        #else:
+        print(f"y = {y}, self.y_c = {lens.y_c}")
+        print(f"asin = {(y + lens.y_c) / lens.radius}")
+        theta = math.pi - math.asin((y + lens.y_c) / lens.radius)
+        print(f"theta = {theta * 180 / math.pi} radius = {lens.radius}")
+
+        x = lens.x_c + lens.radius * math.cos(theta)
+        y = lens.y_c + lens.radius * math.sin(theta)
+        print(f"x, y = {x, y}")
+        self.ray.append([x, y])
+        #print(f"inside ray = {ray}")
+        return self.ray
+    """
+
+
+
+    def refraction(self, lens, n1, n2):
+        """Ray - Lens1 Interaction and refraction"""
+        lens.rayLensIntersection(self.ray, self.angle)
         # Compute Normal Vector
-        unitNormalVector = self.lens2.normalVect(self.ray)
+        unitNormalVector = lens.normalVect(self.ray)
+        #if n1 == 1.5:
+        #    print(f"unitNormalVector = {unitNormalVector}")
+        # Compute ray Unit Normal Vector
+        print(f"33 ray = {self.ray}, angle = {self.angle}")
+        rayUnitVector = [math.cos(self.angle[-1]), math.sin(self.angle[-1])]
         #if self.ray[0][1] == 40:
-        print(f"unitNormalVector = {unitNormalVector}")
-        #Compute ray Unit Normal Vector
-        rayUnitVector = LinAlg.makeUnitVector(self, self.ray[-2][0], self.ray[-2][1], self.ray[-1][0], self.ray[-1][1])
-        # if self.ray[0][1] == 40:
-        print(f"rayUnitVector = {rayUnitVector}")
+        #print(f"rayUnitVector = {rayUnitVector}")
 
         #Compute dot produce. If angle is obtuse unitNormalVector will be multiplied by -1
         dotProd = LinAlg.dotProd(self, unitNormalVector, rayUnitVector)
         if dotProd < 0:
             unitNormalVector = LinAlg.scalarMultiplication(self, -1, unitNormalVector)
+        #if n1 == 1.5:
         print(f"unitNormalVector = {unitNormalVector}")
 
         # Use cross product to find sin(theta)
-        crossProd = LinAlg.crossProd(self, rayUnitVector, unitNormalVector)
-        #if self.ray[0][1] == 40:
-            #print(f"crossProd = {crossProd}")
+        crossProd = LinAlg.crossProd(self, unitNormalVector, rayUnitVector)
+        if n1 == 1.5:
+            print(f"crossProd = {crossProd}")
         angleOfIncidence = math.asin(crossProd)
-        #if self.ray[0][1] == 40:
-            #print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
+        if n1 == 1.5:
+            print(f"AngleofIncidence = {angleOfIncidence * 180 / math.pi}")
 
         # Compute Angle of refraction
-        angleOfRefraction = math.asin(1 * math.sin(angleOfIncidence) / lens.refIndex)
-        #if self.ray[0][1] == 40:
-            #print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
+        angleOfRefraction = lens.n1 * math.asin(math.sin(angleOfIncidence) / lens.n2)
+        if n1 == 1.5:
+            print(f"angleOfRefraction = {angleOfRefraction * 180 / math.pi}")
 
         normalAngle = math.asin(unitNormalVector[1])
-        lightAngle = normalAngle - angleOfRefraction
-        #if self.ray[0][1] == 40:
-            #print(lightAngle*180/math.pi)
+        print(f"normalAngle = {normalAngle}")
+        lightAngle = normalAngle + angleOfRefraction
+        if n1 == 1.5:
+            print(f"lightAngle*180/math.pi = {lightAngle*180/math.pi}")
         self.angle.append(lightAngle)
-        print(f"angle = {self.angle}")
 
+
+    def rayExtension(self):
+        dx = 700 * math.cos(self.angle[-1])
+        dy = 700 * math.sin(self.angle[-1])
+        #print(f"rayAngle = {self.angle[-1] * 180/math.pi}")
+        self.ray.append([self.ray[-1][0] + dx, self.ray[-1][1] + dy])
+
+
+        """ ********************************************************"""
+
+
+    #def refraction2(self):
+        """Ray """
+        #print(f"raym = {self.ray}")
+        #self.lens2.rayLens2Intersection(self.ray, self.angle)
+        #print(f"raym = {self.ray}")
