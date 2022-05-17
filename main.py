@@ -14,12 +14,12 @@ surface1 = lens1.equation()
 
 
 """ Create lens2 class object """
-lens2 = Lens(30, 980, 0, 1.5, 1.0)
+lens2 = Lens(30, 981, 0, 1.5, 1.0)
 surface2 = lens2.equation()
 
 
 """Set number of light sources"""
-numberLightRays = 20
+numberLightRays = 39
 """Initiate Class Light"""
 light = []  #Light List for light objects
 
@@ -48,10 +48,6 @@ for lightBeam in light:
     lightBeam.rayLensIntersection(lens2)
 
 
-
-
-
-print("\n****************************************************************\n")
 for lightBeam in light:
     """ ray lens2 intersection"""
     lightBeam.refraction(lens2, n1 = 1.5, n2 = 1.0)

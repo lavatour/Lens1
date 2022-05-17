@@ -8,7 +8,7 @@ class Light():
     def __init__(self, rayNumber):   #Number of rays to be generated
         self.rayNumber = rayNumber
         self.sourceX = 50   # X position of light source
-        self.sourceY = 0    # Y position of light source
+        self.sourceY = -190    # Y position of light source
         self.sourceWidth = 10   # Vertical distance between rays
         self.ray = []           # ray position
         self.angle = []          # ray angle
